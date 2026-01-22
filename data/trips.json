@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Hawaiian Paradise",
+    "image": "images/trip1.jpg",
+    "description": "Hawaiian Paradise is a relaxing beach getaway."
+  },
+  {
+    "name": "European Adventure",
+    "image": "images/trip2.jpg",
+    "description": "European Adventure features historic cities and culture."
+  },
+  {
+    "name": "Asian Explorer",
+    "image": "images/trip3.jpg",
+    "description": "Asian Explorer offers food, culture, and adventure."
+  }
+]
