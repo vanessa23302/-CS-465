@@ -1,16 +1,31 @@
 [
   {
+    "code": "HAWP",
     "name": "Hawaiian Paradise",
+    "length": "5 nights / 6 days",
+    "start": "2026-03-10",
+    "resort": "Hawaiian Paradise Resort",
+    "perPerson": "$1299",
     "image": "images/trip1.jpg",
     "description": "Hawaiian Paradise is a relaxing beach getaway."
   },
   {
+    "code": "EUAD",
     "name": "European Adventure",
+    "length": "7 nights / 8 days",
+    "start": "2026-04-05",
+    "resort": "European Adventure Hotel",
+    "perPerson": "$1899",
     "image": "images/trip2.jpg",
     "description": "European Adventure features historic cities and culture."
   },
   {
+    "code": "ASXP",
     "name": "Asian Explorer",
+    "length": "6 nights / 7 days",
+    "start": "2026-05-01",
+    "resort": "Asian Explorer Resort",
+    "perPerson": "$1599",
     "image": "images/trip3.jpg",
     "description": "Asian Explorer offers food, culture, and adventure."
   }
