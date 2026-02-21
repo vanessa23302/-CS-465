@@ -2,10 +2,13 @@ const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
 
-// 1) CONNECT TO MONGODB FIRST
+const cors = require('cors');
+
+
+//  CONNECT DB FIRST
 require("./app_server/models/db");
 
-// 2) REGISTER API MODEL AFTER DB CONNECT
+//  REGISTER MODEL SECOND
 require("./app_api/models/travlr");
 
 // Website routes
@@ -15,7 +18,7 @@ const indexRouter = require("./app_server/routes/index");
 const apiRouter = require("./app_api/routes");
 
 const app = express();
-const port =3000;
+const port = 3000;
 
 // Views + Handlebars
 app.set("views", path.join(__dirname, "app_server", "views"));
@@ -25,6 +28,10 @@ app.set("view engine", "hbs");
 hbs.registerPartials(
   path.join(__dirname, "app_server", "views", "partials")
 );
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));

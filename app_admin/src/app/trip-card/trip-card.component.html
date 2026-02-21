@@ -1,0 +1,31 @@
+<div class="card mb-3" *ngIf="trip">
+  <div class="card-body">
+
+    <h5 class="card-title">{{ trip.name }}</h5>
+
+    <p class="card-text mb-1"><strong>Code:</strong> {{ trip.code }}</p>
+    <p class="card-text mb-1"><strong>Length:</strong> {{ trip.length }}</p>
+    <p class="card-text mb-1"><strong>Resort:</strong> {{ trip.resort }}</p>
+    <p class="card-text mb-1">
+      <strong>Start:</strong> {{ trip.start | date }}
+    </p>
+    <p class="card-text mb-2">
+      <strong>Per Person:</strong> {{ trip.perPerson }}
+    </p>
+
+    <div class="d-flex gap-2">
+      <!-- EDIT -->
+      <a class="btn btn-primary btn-sm"
+         [routerLink]="['/edit', trip._id]">
+        Edit
+      </a>
+
+      <!-- DELETE -->
+      <button class="btn btn-danger btn-sm"
+              (click)="deleteTrip()">
+        Delete
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<h2 class="mb-3">Edit Trip</h2>
+
+<!-- Loading message -->
+<div *ngIf="loading" class="alert alert-info">
+  Loading trip...
+</div>
+
+<!-- Error message -->
+<div *ngIf="errorMsg" class="alert alert-danger">
+  {{ errorMsg }}
+</div>
+
+<!-- Edit Form -->
+<form *ngIf="trip">
+
+  <div class="mb-3">
+    <label class="form-label">Trip Name</label>
+    <input
+      class="form-control"
+      [(ngModel)]="trip.name"
+      name="name">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Code</label>
+    <input
+      class="form-control"
+      [(ngModel)]="trip.code"
+      name="code">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Length</label>
+    <input
+      class="form-control"
+      [(ngModel)]="trip.length"
+      name="length">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Resort</label>
+    <input
+      class="form-control"
+      [(ngModel)]="trip.resort"
+      name="resort">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Start Date</label>
+    <input
+      type="date"
+      class="form-control"
+      [(ngModel)]="trip.start"
+      name="start">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Price Per Person</label>
+    <input
+      class="form-control"
+      [(ngModel)]="trip.perPerson"
+      name="perPerson">
+  </div>
+
+  <!-- Buttons -->
+  <div class="d-flex gap-2">
+
+    <!-- IMPORTANT: type="button" prevents form submit -->
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="saveTrip()"
+      [disabled]="saving">
+      {{ saving ? 'Saving...' : 'Save Changes' }}
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="cancel()">
+      Cancel
+    </button>
+
+  </div>
+
+</form>

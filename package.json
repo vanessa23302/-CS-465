@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/vanessa23302/-CS-465#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^4.22.1",
     "hbs": "^4.2.0",
     "mongoose": "^9.1.5"
