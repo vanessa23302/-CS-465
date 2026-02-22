@@ -1,48 +1,43 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
 import { TripDataService, Trip } from '../services/trip-data.service';
 
 @Component({
   selector: 'app-add-trip',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './add-trip.component.html',
   styleUrls: ['./add-trip.component.css']
 })
 export class AddTripComponent {
+
+  errorMsg = '';
+
   trip: Partial<Trip> = {
     code: '',
     name: '',
     length: '',
     start: '',
     resort: '',
-    perPerson: 0,
-    image: '',
-    description: ''
+    perPerson: 0
   };
-
-  saving = false;
-  errorMsg = '';
 
   constructor(private tripService: TripDataService, private router: Router) {}
 
-  saveTrip(): void {
-    this.saving = true;
+  onSubmit(): void {
     this.errorMsg = '';
 
     this.tripService.addTrip(this.trip).subscribe({
-      next: () => this.router.navigate(['/trips']),
+      next: () => {
+        this.router.navigate(['/']);
+      },
       error: (err) => {
-        console.error(err);
-        this.errorMsg = 'Could not add trip.';
-        this.saving = false;
+        console.error('Add trip failed', err);
+        this.errorMsg = 'Could not add trip. Make sure you are logged in.';
       }
     });
-  }
-
-  cancel(): void {
-    this.router.navigate(['/trips']);
   }
 }

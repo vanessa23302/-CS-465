@@ -1,4 +1,28 @@
-<div class="container py-4">
-  <h1 class="mb-4">Travlr Getaways Admin</h1>
+<div class="container mt-3">
+
+  <!-- HEADER -->
+  <h1>Travlr Getaways Admin</h1>
+
+  <!-- NAV BAR -->
+  <div style="margin-bottom:15px;">
+
+    <!-- show login if NOT logged in -->
+    <a
+      *ngIf="!tripService.isLoggedIn()"
+      routerLink="/login">
+      Login
+    </a>
+
+    <!-- show logout if logged in -->
+    <button
+      *ngIf="tripService.isLoggedIn()"
+      class="btn btn-outline-danger btn-sm"
+      (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
   <router-outlet></router-outlet>
+
 </div>

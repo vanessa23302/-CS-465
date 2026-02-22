@@ -1,0 +1,23 @@
+<h1>Admin Login</h1>
+
+<form (ngSubmit)="onLogin()">
+  <div>
+    <label>Email</label><br />
+    <input type="email" name="email" [(ngModel)]="email" required />
+  </div>
+
+  <div style="margin-top: 10px;">
+    <label>Password</label><br />
+    <input type="password" name="password" [(ngModel)]="password" required />
+  </div>
+
+  <div style="margin-top: 15px;">
+    <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Logging in...' : 'Login' }}
+    </button>
+  </div>
+
+  <p *ngIf="errorMsg" style="color: red; margin-top: 10px;">
+    {{ errorMsg }}
+  </p>
+</form>

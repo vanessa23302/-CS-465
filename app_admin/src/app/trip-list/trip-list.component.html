@@ -1,19 +1,26 @@
-<a class="btn btn-success mb-3" routerLink="/add">+ Add Trip</a>
+<div style="margin-bottom:15px;">
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h2 class="mb-0">Trip Listing</h2>
+  <!-- ADMIN ONLY -->
+  <button
+    *ngIf="tripService.isLoggedIn()"
+    routerLink="/add"
+    class="btn btn-success">
+    + Add Trip
+  </button>
+
 </div>
 
-<div *ngIf="isLoading" class="alert alert-info">
-  Loading trips...
-</div>
+<h2>Trip Listing</h2>
 
-<div *ngIf="!isLoading && loadError" class="alert alert-danger">
+<p *ngIf="isLoading">Loading trips...</p>
+
+<p *ngIf="loadError" style="color:red;">
   {{ loadError }}
-</div>
+</p>
 
-<div *ngIf="!isLoading && !loadError && trips.length === 0" class="alert alert-warning">
-  No trips found in the database yet.
+<div *ngIf="!isLoading && !loadError">
+  <app-trip-card
+    *ngFor="let trip of trips"
+    [trip]="trip">
+  </app-trip-card>
 </div>
-
-<app-trip-card *ngFor="let trip of trips" [trip]="trip"></app-trip-card>

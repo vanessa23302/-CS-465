@@ -22,3 +22,4 @@ mongoose.connection.on("disconnected", () => {
 
 // LOAD MODELS HERE
 require("./travlr");
+require('./users');

@@ -1,23 +1,36 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
-import { TripListComponent } from './trip-list.component';
+import { TripCardComponent } from '../trip-card/trip-card.component';
+import { TripDataService, Trip } from '../services/trip-data.service';
 
-describe('TripListComponent', () => {
-  let component: TripListComponent;
-  let fixture: ComponentFixture<TripListComponent>;
+@Component({
+  selector: 'app-trip-list',
+  standalone: true,
+  imports: [CommonModule, RouterLink, TripCardComponent],
+  templateUrl: './trip-list.component.html',
+  styleUrls: ['./trip-list.component.css']
+})
+export class TripListComponent implements OnInit {
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TripListComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(TripListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  trips: Trip[] = [];
+  isLoading = true;
+  loadError = '';
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  // IMPORTANT: public so HTML can access it
+  constructor(public tripService: TripDataService) {}
+
+  ngOnInit(): void {
+    this.tripService.getTrips().subscribe({
+      next: (data) => {
+        this.trips = data;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.loadError = 'Could not load trips. Make sure the API is running.';
+        this.isLoading = false;
+      }
+    });
+  }
+}

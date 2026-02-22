@@ -1,48 +1,56 @@
+require("dotenv").config();
+
 const express = require("express");
-const path = require("path");
-const hbs = require("hbs");
+const passport = require("passport");
 
-const cors = require('cors');
+// Load DB + models first so mongoose.model("User") exists everywhere
+require("./app_api/models/db");
 
+// Load passport strategy after models
+require("./app_api/config/passport");
 
-//  CONNECT DB FIRST
-require("./app_server/models/db");
-
-//  REGISTER MODEL SECOND
-require("./app_api/models/travlr");
-
-// Website routes
-const indexRouter = require("./app_server/routes/index");
-
-// API routes
-const apiRouter = require("./app_api/routes");
+// Load routes
+const routesApi = require("./app_api/routes/index");
 
 const app = express();
-const port = 3000;
 
-// Views + Handlebars
-app.set("views", path.join(__dirname, "app_server", "views"));
-app.set("view engine", "hbs");
-
-// Partials
-hbs.registerPartials(
-  path.join(__dirname, "app_server", "views", "partials")
-);
-
-app.use(cors());
+// middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
-// Static files
-app.use(express.static(path.join(__dirname, "public")));
+// passport init
+app.use(passport.initialize());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 
-// Website routes
-app.use("/", indexRouter);
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
 
-// API routes
-app.use("/api", apiRouter);
-
-// Start server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  next();
 });
+// api routes
+app.use("/api", routesApi);
+
+// error handler
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  next(err);
+});
+
+// start server
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("MongoDB should be connected above");
+  console.log("Server running on port " + PORT);
+});
+
+module.exports = app;
