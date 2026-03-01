@@ -52,5 +52,7 @@ app.listen(PORT, () => {
   console.log("MongoDB should be connected above");
   console.log("Server running on port " + PORT);
 });
-
+app.get("/", (req, res) => {
+  res.send("Server is running. Try /api/trips for the API.");
+});
 module.exports = app;
